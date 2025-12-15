@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Tło w kolorze z ikony -->
+    <background android:drawable="@color/ic_launcher_bg" />
+    <!-- Nasz nowy foreground PNG -->
+    <foreground android:drawable="@mipmap/ic_launcher_foreground" />
+    <!-- Monochromatyczna wersja – tymczasowo ten sam foreground -->
+    <monochrome android:drawable="@mipmap/ic_launcher_foreground" />
+</adaptive-icon>
