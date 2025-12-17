@@ -67,6 +67,12 @@ dependencies {
     implementation libs.lifecycle.viewmodel
     implementation libs.lifecycle.livedata
     
+    // AdMob
+    implementation libs.play.services.ads
+    
+    // Guava (for ListenableFuture used by CameraX)
+    implementation libs.guava
+    
     // Testing
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit

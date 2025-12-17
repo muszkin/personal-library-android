@@ -44,7 +44,7 @@ public class LoadingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (isbn == null || isbn.isEmpty()) {
-            Toast.makeText(requireContext(), "Brak numeru ISBN", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.no_isbn), Toast.LENGTH_SHORT).show();
             Navigation.findNavController(view).popBackStack();
             return;
         }

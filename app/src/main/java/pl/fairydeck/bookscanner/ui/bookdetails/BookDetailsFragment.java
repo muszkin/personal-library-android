@@ -106,12 +106,12 @@ public class BookDetailsFragment extends Fragment {
     }
 
     private void displayBook(BookEntity book) {
-        String title = book.getTitle() != null ? book.getTitle() : "Brak tytułu";
+        String title = book.getTitle() != null ? book.getTitle() : getString(R.string.no_title);
         binding.textViewTitle.setText(title);
-        binding.textViewAuthor.setText(book.getAuthor() != null ? book.getAuthor() : "Brak autora");
-        binding.textViewIsbn.setText("ISBN: " + (book.getIsbn() != null ? book.getIsbn() : ""));
-        binding.textViewPublisher.setText(book.getPublisher() != null ? "Wydawca: " + book.getPublisher() : "");
-        binding.textViewPublishedDate.setText(book.getPublishedDate() != null ? "Data wydania: " + book.getPublishedDate() : "");
+        binding.textViewAuthor.setText(book.getAuthor() != null ? book.getAuthor() : getString(R.string.no_author));
+        binding.textViewIsbn.setText(getString(R.string.isbn) + ": " + (book.getIsbn() != null ? book.getIsbn() : ""));
+        binding.textViewPublisher.setText(book.getPublisher() != null ? getString(R.string.publisher) + ": " + book.getPublisher() : "");
+        binding.textViewPublishedDate.setText(book.getPublishedDate() != null ? getString(R.string.published_date) + ": " + book.getPublishedDate() : "");
         binding.textViewDescription.setText(book.getDescription() != null ? book.getDescription() : "");
 
         // Ustaw tytuł w pasku obok strzałki cofania (toolbar)
@@ -173,7 +173,7 @@ public class BookDetailsFragment extends Fragment {
         android.widget.Button buttonCapture = dialog.findViewById(R.id.buttonCapture);
 
         if (previewView == null || buttonCancel == null || buttonCapture == null) {
-            Toast.makeText(requireContext(), "Błąd inicjalizacji aparatu", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.camera_init_error), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -198,7 +198,7 @@ public class BookDetailsFragment extends Fragment {
                     // Use activity as lifecycle owner since dialog doesn't have lifecycle
                     camera = cameraProvider.bindToLifecycle(requireActivity(), cameraSelector, preview, imageCapture);
                 } catch (Exception e) {
-                    Toast.makeText(requireContext(), "Błąd uruchomienia aparatu", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), getString(R.string.camera_start_error), Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     return;
                 }
@@ -230,9 +230,9 @@ public class BookDetailsFragment extends Fragment {
                                             currentBook.setLocalCoverPath(savedPath);
                                             viewModel.setCurrentBook(currentBook);
                                             displayBook(currentBook);
-                                            Toast.makeText(requireContext(), "Zdjęcie zapisane", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(requireContext(), getString(R.string.photo_saved), Toast.LENGTH_SHORT).show();
                                         } else {
-                                            Toast.makeText(requireContext(), "Błąd zapisywania zdjęcia", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(requireContext(), getString(R.string.photo_save_error), Toast.LENGTH_SHORT).show();
                                         }
                                         
                                         // Delete temp file
@@ -245,7 +245,7 @@ public class BookDetailsFragment extends Fragment {
 
                                     @Override
                                     public void onError(@NonNull ImageCaptureException exception) {
-                                        Toast.makeText(requireContext(), "Błąd podczas robienia zdjęcia: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(requireContext(), getString(R.string.photo_capture_error, exception.getMessage()), Toast.LENGTH_SHORT).show();
                                         photoFile.delete();
                                         if (cameraProvider != null) {
                                             cameraProvider.unbindAll();
@@ -265,19 +265,19 @@ public class BookDetailsFragment extends Fragment {
 
                 dialog.show();
             } catch (ExecutionException | InterruptedException e) {
-                Toast.makeText(requireContext(), "Błąd inicjalizacji aparatu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), getString(R.string.camera_init_error), Toast.LENGTH_SHORT).show();
             }
         }, ContextCompat.getMainExecutor(requireContext()));
     }
 
     private void saveBook() {
         if (currentBook == null) {
-            Toast.makeText(requireContext(), "Brak danych do zapisania", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.no_data_to_save), Toast.LENGTH_SHORT).show();
             return;
         }
 
         viewModel.saveBook(currentBook);
-        Toast.makeText(requireContext(), "Książka zapisana", Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), getString(R.string.book_saved), Toast.LENGTH_SHORT).show();
         // Cofnięcie o jeden ekran wstecz:
         // - jeśli weszliśmy z listy, wrócimy na listę
         // - jeśli ze skanera (przez loading), wrócimy na skaner

@@ -71,7 +71,7 @@ public class ScannerFragment extends Fragment {
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
                 bindCameraUseCases(cameraProvider);
             } catch (ExecutionException | InterruptedException e) {
-                Toast.makeText(requireContext(), "Błąd inicjalizacji aparatu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), getString(R.string.camera_init_error), Toast.LENGTH_SHORT).show();
             }
         }, ContextCompat.getMainExecutor(requireContext()));
     }
@@ -109,7 +109,7 @@ public class ScannerFragment extends Fragment {
                     imageAnalysis
             );
         } catch (Exception e) {
-            Toast.makeText(requireContext(), "Błąd uruchomienia aparatu", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.camera_start_error), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import pl.fairydeck.bookscanner.R;
 import pl.fairydeck.bookscanner.data.api.BookApiService;
 import pl.fairydeck.bookscanner.data.database.BookDao;
 import pl.fairydeck.bookscanner.data.database.BookDatabase;
@@ -19,8 +20,10 @@ public class BookRepository {
     private LiveData<List<BookEntity>> allBooks;
     private BookApiService apiService;
     private ExecutorService executorService;
+    private Application application;
 
     public BookRepository(Application application) {
+        this.application = application;
         BookDatabase database = BookDatabase.getInstance(application);
         bookDao = database.bookDao();
         allBooks = bookDao.getAll();
@@ -78,7 +81,7 @@ public class BookRepository {
                 book.setId(id);
                 callback.onSuccess(book);
             } else {
-                callback.onError("Nie znaleziono książki o podanym ISBN");
+                callback.onError(application.getString(R.string.book_not_found_by_isbn));
             }
         });
     }

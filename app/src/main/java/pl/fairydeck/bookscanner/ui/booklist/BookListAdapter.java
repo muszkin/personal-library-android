@@ -64,9 +64,9 @@ public class BookListAdapter extends ListAdapter<BookEntity, BookListAdapter.Boo
         }
 
         public void bind(BookEntity book) {
-            textViewTitle.setText(book.getTitle() != null ? book.getTitle() : "Brak tytułu");
-            textViewAuthor.setText(book.getAuthor() != null ? book.getAuthor() : "Brak autora");
-            textViewIsbn.setText("ISBN: " + (book.getIsbn() != null ? book.getIsbn() : ""));
+            textViewTitle.setText(book.getTitle() != null ? book.getTitle() : itemView.getContext().getString(R.string.no_title));
+            textViewAuthor.setText(book.getAuthor() != null ? book.getAuthor() : itemView.getContext().getString(R.string.no_author));
+            textViewIsbn.setText(itemView.getContext().getString(R.string.isbn) + ": " + (book.getIsbn() != null ? book.getIsbn() : ""));
 
             // Load cover image
             String imageUrl = book.getCoverImageUrl();

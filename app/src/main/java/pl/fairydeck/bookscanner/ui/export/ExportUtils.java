@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import pl.fairydeck.bookscanner.R;
 import pl.fairydeck.bookscanner.data.database.BookEntity;
 
 public class ExportUtils {
@@ -36,7 +37,11 @@ public class ExportUtils {
         FileWriter writer = new FileWriter(csvFile);
         
         // Write header
-        writer.append("ISBN,Tytuł,Autor,Wydawca,Data wydania\n");
+        writer.append(context.getString(R.string.isbn) + "," +
+                context.getString(R.string.title) + "," +
+                context.getString(R.string.author) + "," +
+                context.getString(R.string.publisher) + "," +
+                context.getString(R.string.published_date) + "\n");
         
         // Write data
         for (BookEntity book : books) {
@@ -90,16 +95,16 @@ public class ExportUtils {
             }
 
             // Title
-            canvas.drawText(nonNull(book.getTitle(), "Brak tytułu"), margin, y, titlePaint);
+            canvas.drawText(nonNull(book.getTitle(), context.getString(R.string.no_title)), margin, y, titlePaint);
             y += 20;
             // Author
-            canvas.drawText("Autor: " + nonNull(book.getAuthor(), "-"), margin, y, paint);
+            canvas.drawText(context.getString(R.string.author) + ": " + nonNull(book.getAuthor(), "-"), margin, y, paint);
             y += 16;
-            canvas.drawText("ISBN: " + nonNull(book.getIsbn(), "-"), margin, y, paint);
+            canvas.drawText(context.getString(R.string.isbn) + ": " + nonNull(book.getIsbn(), "-"), margin, y, paint);
             y += 16;
-            canvas.drawText("Wydawca: " + nonNull(book.getPublisher(), "-"), margin, y, paint);
+            canvas.drawText(context.getString(R.string.publisher) + ": " + nonNull(book.getPublisher(), "-"), margin, y, paint);
             y += 16;
-            canvas.drawText("Data wydania: " + nonNull(book.getPublishedDate(), "-"), margin, y, paint);
+            canvas.drawText(context.getString(R.string.published_date) + ": " + nonNull(book.getPublishedDate(), "-"), margin, y, paint);
             y += 16;
 
             // Description trimmed

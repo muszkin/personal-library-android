@@ -66,12 +66,12 @@ public class BookListFragment extends Fragment {
                 if (direction == ItemTouchHelper.LEFT) {
                     // Confirm deletion
                     new AlertDialog.Builder(requireContext())
-                            .setTitle("Usuń książkę")
-                            .setMessage("Czy na pewno chcesz usunąć tę książkę?")
-                            .setPositiveButton("Usuń", (dialog, which) -> {
+                            .setTitle(getString(R.string.delete_book))
+                            .setMessage(getString(R.string.delete_book_confirmation))
+                            .setPositiveButton(getString(R.string.delete), (dialog, which) -> {
                                 viewModel.deleteBook(book.getId());
                             })
-                            .setNegativeButton("Anuluj", (dialog, which) -> adapter.notifyItemChanged(position))
+                            .setNegativeButton(getString(R.string.cancel), (dialog, which) -> adapter.notifyItemChanged(position))
                             .setOnCancelListener(dialog -> adapter.notifyItemChanged(position))
                             .show();
                 } else if (direction == ItemTouchHelper.RIGHT) {
